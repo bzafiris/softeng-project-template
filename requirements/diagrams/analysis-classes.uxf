@@ -29,7 +29,7 @@ AccountController</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>220</x>
-      <y>400</y>
+      <y>450</y>
       <w>160</w>
       <h>50</h>
     </coordinates>
@@ -65,7 +65,7 @@ CustomerController</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>220</x>
-      <y>340</y>
+      <y>390</y>
       <w>160</w>
       <h>50</h>
     </coordinates>
