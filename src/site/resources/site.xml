@@ -12,7 +12,9 @@
   <body>
   	<menu name="ΤΕΚΜΗΡΙΩΣΗ">
       <item href="SoftwareRequirementsSpecification.html" name="΄Έγγραφο Προδιαγραφών Απαιτήσεων" />
+      <!-- 
       <item href="SoftwareDesignDescription.html" name="΄΄Έγγραφο Περιγραφής Σχεδίασης" />
+       -->
     </menu>
     <menu ref="reports" inherit="bottom" />
   </body>
