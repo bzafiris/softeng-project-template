@@ -1,9 +1,6 @@
 package com.example.app.persistence;
 
-import com.example.app.domain.Article;
-import com.example.app.domain.Journal;
-import com.example.app.domain.Researcher;
-import com.example.app.domain.User;
+import com.example.app.domain.*;
 import com.example.app.util.SystemDate;
 import com.example.app.util.SystemDateStub;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +11,7 @@ import javax.persistence.Query;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -73,6 +71,9 @@ class JPAQueriesTest {
         assertNotNull(a.getTitle());
         assertEquals(now, a.getCreated_at());
         assertNotNull(a.getCorrespondentAuthor());
+
+        Set<Author> authors = a.getAuthors();
+        assertEquals(2, authors.size());
 
     }
 }

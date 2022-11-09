@@ -19,7 +19,13 @@ public class Initializer {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
-        Query query = em.createNativeQuery("delete from articles");
+        Query query = em.createNativeQuery("delete from article_authors");
+        query.executeUpdate();
+
+        query = em.createNativeQuery("delete from authors");
+        query.executeUpdate();
+
+        query = em.createNativeQuery("delete from articles");
         query.executeUpdate();
 
         query = em.createNativeQuery("delete from journals");
@@ -27,10 +33,6 @@ public class Initializer {
 
         query = em.createNativeQuery("delete from users");
         query.executeUpdate();
-
-        query = em.createNativeQuery("delete from authors");
-        query.executeUpdate();
-
 
         tx.commit();
         em.close();
@@ -40,9 +42,14 @@ public class Initializer {
     public void prepareData() {
 
         // πριν εισάγουμε τα δεδομένα διαγράφουμε ότι υπάρχει
-        eraseData();                      
+        eraseData();
 
 
+        Author a11 = new Author("Pooja", "Rani", "University of Bern", "pooja.rani@unibe.ch");
+        Author a12 = new Author("Ariana", "Blasi", "Università della Svizzera italiana", "arianna.blasi@usi.ch");
+
+        Author a21 = new Author("Enrico", "Fregnan", "University of Zurich", "fregnan@ifi.uzh.ch");
+        Author a22 = new Author("Josua", "Fröhlich", "University of Zurich", "josua.froehlich@uzh.ch");
 
         Researcher r1 = new Researcher("Nikos", "Diamantidis", "AUEB", "ndia@aueb.gr");
 
@@ -65,6 +72,8 @@ public class Initializer {
                 "Systematic literature review");
         a1.setJournal(j1);
         a1.setCorrespondentAuthor(r2);
+        a1.addAuthor(a11);
+        a1.addAuthor(a12);
 
         Article a2 = new Article();
         a2.setTitle("Graph-based visualization of merge requests for code review");
@@ -75,6 +84,8 @@ public class Initializer {
                 "Empirical software engineering");
         a2.setJournal(j1);
         a2.setCorrespondentAuthor(r3);
+        a2.addAuthor(a21);
+        a2.addAuthor(a22);
 
         EntityManager em = JPAUtil.createEntityManager();
         EntityTransaction tx = em.getTransaction();

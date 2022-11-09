@@ -36,6 +36,14 @@ public class Article {
     @JoinColumn(name = "correspondent_author_id", nullable = false)
     private Researcher correspondentAuthor;
 
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE },
+            fetch=FetchType.LAZY)
+    @JoinTable(name="article_authors",
+            joinColumns = {@JoinColumn(name="article_id")},
+            inverseJoinColumns = {@JoinColumn(name="author_id")}
+    )
+    private Set<Author> authors = new HashSet<Author>();
+
     public Article() {
     }
 
@@ -85,5 +93,21 @@ public class Article {
 
     public void setCorrespondentAuthor(Researcher correspondentAuthor) {
         this.correspondentAuthor = correspondentAuthor;
+    }
+
+    public Set<Author> getAuthors() {
+        return new HashSet<>(authors);
+    }
+
+    public void addAuthor(Author author) {
+        authors.add(author);
+    }
+
+    /**
+     * Απομάκρυνση ενός συγγραφέα ({@link Author}) από τους συγγραφείς του βιβλίου.
+     * @param author Ο συγγραφέας
+     */
+    public void removeAuthor(Author author) {
+        authors.remove(author);
     }
 }
