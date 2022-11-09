@@ -28,6 +28,10 @@ public class Initializer {
         query = em.createNativeQuery("delete from users");
         query.executeUpdate();
 
+        query = em.createNativeQuery("delete from authors");
+        query.executeUpdate();
+
+
         tx.commit();
         em.close();
     }
@@ -38,20 +42,23 @@ public class Initializer {
         // πριν εισάγουμε τα δεδομένα διαγράφουμε ότι υπάρχει
         eraseData();                      
 
-        Journal j1 = new Journal("Journal of Systems and Software", "0164-1212");
+
 
         Researcher r1 = new Researcher("Nikos", "Diamantidis", "AUEB", "ndia@aueb.gr");
 
         Editor e1 = new Editor("Paris", "Avgeriou",
                 "University of Groningen", "avgeriou@gmail.com");
 
+        Journal j1 = new Journal("Journal of Systems and Software", "0164-1212");
+        j1.setEditor(e1);
+
         EntityManager em = JPAUtil.createEntityManager();
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
+        em.persist(e1);
         em.persist(j1);
         em.persist(r1);
-        em.persist(e1);
 
         tx.commit();
         em.close();

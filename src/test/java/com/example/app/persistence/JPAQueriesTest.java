@@ -12,6 +12,7 @@ import javax.persistence.Query;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class JPAQueriesTest {
 
@@ -32,8 +33,11 @@ class JPAQueriesTest {
         List<Journal> result = query.getResultList();
         assertEquals(1, result.size());
 
-    }
+        Journal j = result.get(0);
+        assertNotNull(j.getEditor());
+        assertEquals("Avgeriou", j.getEditor().getLastName());
 
+    }
 
     @Test
     void queryResearchers(){
