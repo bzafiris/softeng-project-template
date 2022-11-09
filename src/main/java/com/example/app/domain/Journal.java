@@ -14,7 +14,7 @@ public class Journal {
     @Column(name="title", length=200, nullable=false, unique = true)
     private String title;
 
-    @Column(name="issn", length=200, nullable=false, unique = true)
+    @Column(name="issn", length=10, nullable=false, unique = true)
     private String issn;
 
     public Journal() {

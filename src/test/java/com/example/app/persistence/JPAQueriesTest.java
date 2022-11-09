@@ -1,6 +1,8 @@
 package com.example.app.persistence;
 
 import com.example.app.domain.Journal;
+import com.example.app.domain.Researcher;
+import com.example.app.domain.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,5 +32,23 @@ class JPAQueriesTest {
         List<Journal> result = query.getResultList();
         assertEquals(1, result.size());
 
+    }
+
+
+    @Test
+    void queryResearchers(){
+        Query query = em.createQuery("select r from Researcher r");
+        List<Researcher> result = query.getResultList();
+        assertEquals(1, result.size());
+
+        Researcher r = result.get(0);
+        assertEquals("Nikos", r.getFirstName());
+    }
+
+    @Test
+    void queryUsers(){
+        Query query = em.createQuery("select u from User u");
+        List<User> result = query.getResultList();
+        assertEquals(2, result.size());
     }
 }
