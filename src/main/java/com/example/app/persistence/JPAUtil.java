@@ -13,12 +13,11 @@ public class JPAUtil {
     
     public static EntityManagerFactory getEntityManagerFactory() {
         if (emf == null) {
-            emf = Persistence.createEntityManagerFactory("library");
+            emf = Persistence.createEntityManagerFactory("editorial-manager-db");
         }
         return emf;
     }
-    
-    
+
     public static EntityManager getCurrentEntityManager() {      
         EntityManager em = currentEntityManager.get();         
         if (em  == null || !em.isOpen()) {
