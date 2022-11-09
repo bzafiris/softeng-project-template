@@ -4,6 +4,8 @@ import com.example.app.util.SystemDate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "articles")
@@ -26,9 +28,13 @@ public class Article {
     @Column(name="created_at")
     private LocalDate created_at = SystemDate.now();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "journal_id", nullable = false)
     private Journal journal;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "correspondent_author_id", nullable = false)
+    private Researcher correspondentAuthor;
 
     public Article() {
     }
@@ -71,5 +77,13 @@ public class Article {
 
     public void setJournal(Journal journal) {
         this.journal = journal;
+    }
+
+    public Researcher getCorrespondentAuthor() {
+        return correspondentAuthor;
+    }
+
+    public void setCorrespondentAuthor(Researcher correspondentAuthor) {
+        this.correspondentAuthor = correspondentAuthor;
     }
 }

@@ -50,17 +50,15 @@ class JPAQueriesTest {
     void queryResearchers(){
         Query query = em.createQuery("select r from Researcher r");
         List<Researcher> result = query.getResultList();
-        assertEquals(1, result.size());
+        assertEquals(3, result.size());
 
-        Researcher r = result.get(0);
-        assertEquals("Nikos", r.getFirstName());
     }
 
     @Test
     void queryUsers(){
         Query query = em.createQuery("select u from User u");
         List<User> result = query.getResultList();
-        assertEquals(2, result.size());
+        assertEquals(4, result.size());
     }
 
     @Test
@@ -74,6 +72,7 @@ class JPAQueriesTest {
         assertEquals("Journal of Systems and Software", a.getJournal().getTitle());
         assertNotNull(a.getTitle());
         assertEquals(now, a.getCreated_at());
+        assertNotNull(a.getCorrespondentAuthor());
 
     }
 }

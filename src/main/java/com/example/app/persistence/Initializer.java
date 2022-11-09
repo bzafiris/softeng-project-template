@@ -46,6 +46,10 @@ public class Initializer {
 
         Researcher r1 = new Researcher("Nikos", "Diamantidis", "AUEB", "ndia@aueb.gr");
 
+        Researcher r2 = new Researcher("Pooja", "Rani", "University of Bern", "pooja.rani@unibe.ch");
+        Researcher r3 = new Researcher("Enrico", "Fregnan", "University of Zurich", "fregnan@ifi.uzh.ch");
+
+
         Editor e1 = new Editor("Paris", "Avgeriou",
                 "University of Groningen", "avgeriou@gmail.com");
 
@@ -60,6 +64,7 @@ public class Initializer {
                 "Documentation quality\n" +
                 "Systematic literature review");
         a1.setJournal(j1);
+        a1.setCorrespondentAuthor(r2);
 
         Article a2 = new Article();
         a2.setTitle("Graph-based visualization of merge requests for code review");
@@ -69,6 +74,7 @@ public class Initializer {
                 "Software visualization\n" +
                 "Empirical software engineering");
         a2.setJournal(j1);
+        a2.setCorrespondentAuthor(r3);
 
         EntityManager em = JPAUtil.createEntityManager();
         EntityTransaction tx = em.getTransaction();
@@ -77,6 +83,8 @@ public class Initializer {
         em.persist(e1);
         em.persist(j1);
         em.persist(r1);
+        em.persist(r2);
+        em.persist(r3);
         em.persist(a1);
         em.persist(a2);
 
