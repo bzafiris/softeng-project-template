@@ -1,9 +1,6 @@
 package com.example.app.persistence;
 
-import com.example.app.domain.Editor;
-import com.example.app.domain.Journal;
-import com.example.app.domain.Researcher;
-import com.example.app.domain.User;
+import com.example.app.domain.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -21,8 +18,11 @@ public class Initializer {
         EntityManager em = JPAUtil.getCurrentEntityManager();
         EntityTransaction tx = em.getTransaction();
         tx.begin();
-        
-        Query query = em.createNativeQuery("delete from journals");
+
+        Query query = em.createNativeQuery("delete from articles");
+        query.executeUpdate();
+
+        query = em.createNativeQuery("delete from journals");
         query.executeUpdate();
 
         query = em.createNativeQuery("delete from users");
@@ -52,6 +52,24 @@ public class Initializer {
         Journal j1 = new Journal("Journal of Systems and Software", "0164-1212");
         j1.setEditor(e1);
 
+        Article a1 = new Article();
+        a1.setTitle("A decade of code comment quality assessment: A systematic literature review");
+        a1.setSummary("Code comments are important artifacts in software systems and play" +
+                " a paramount role in many software engineering (SE) tasks...");
+        a1.setKeywords("Code comments\n" +
+                "Documentation quality\n" +
+                "Systematic literature review");
+        a1.setJournal(j1);
+
+        Article a2 = new Article();
+        a2.setTitle("Graph-based visualization of merge requests for code review");
+        a2.setSummary("Code review is a software development practice aimed at assessing " +
+                "code quality, finding defects, and sharing knowledge among developers ...");
+        a2.setKeywords("Modern code review\n" +
+                "Software visualization\n" +
+                "Empirical software engineering");
+        a2.setJournal(j1);
+
         EntityManager em = JPAUtil.createEntityManager();
         EntityTransaction tx = em.getTransaction();
         tx.begin();
@@ -59,6 +77,8 @@ public class Initializer {
         em.persist(e1);
         em.persist(j1);
         em.persist(r1);
+        em.persist(a1);
+        em.persist(a2);
 
         tx.commit();
         em.close();
