@@ -116,8 +116,8 @@ public class Review {
 
     public void setInvitation(ReviewInvitation invitation) {
         this.invitation = invitation;
+        invitation.setReview(this);
     }
-
 
     public void submit() throws DomainException {
         if (submitted) {
