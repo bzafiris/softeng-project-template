@@ -14,8 +14,8 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(name = "score", nullable = false)
-    private int score = 0;
+    @Column(name = "score")
+    private Integer score;
 
     @Column(name = "author_comments")
     private String authorComments;
@@ -54,11 +54,11 @@ public class Review {
         return id;
     }
 
-    public int getScore() {
+    public Integer getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(Integer score) {
         this.score = score;
     }
 
@@ -116,5 +116,19 @@ public class Review {
 
     public void setInvitation(ReviewInvitation invitation) {
         this.invitation = invitation;
+    }
+
+
+    public void submit() throws DomainException {
+        if (submitted) {
+            throw new DomainException("Review already submitted");
+        }
+
+        if (editorComments == null || authorComments == null || recommendation == null
+                || score == null) {
+            throw new DomainException("Submission of incomplete reviews is not allowed");
+        }
+        submitted = true;
+        submittedAt = SystemDate.now();
     }
 }
