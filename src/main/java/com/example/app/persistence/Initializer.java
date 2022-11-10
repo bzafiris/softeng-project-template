@@ -25,6 +25,9 @@ public class Initializer {
         query = em.createNativeQuery("delete from authors");
         query.executeUpdate();
 
+        query = em.createNativeQuery("delete from review_invitations");
+        query.executeUpdate();
+
         query = em.createNativeQuery("delete from articles");
         query.executeUpdate();
 
@@ -39,7 +42,7 @@ public class Initializer {
     }
     
 
-    public void prepareData() {
+    public void prepareData() throws DomainException {
 
         // πριν εισάγουμε τα δεδομένα διαγράφουμε ότι υπάρχει
         eraseData();
@@ -86,6 +89,9 @@ public class Initializer {
         a2.setCorrespondentAuthor(r3);
         a2.addAuthor(a21);
         a2.addAuthor(a22);
+
+        a1.inviteReviewer(r1);
+        a2.inviteReviewer(r1);
 
         EntityManager em = JPAUtil.createEntityManager();
         EntityTransaction tx = em.getTransaction();

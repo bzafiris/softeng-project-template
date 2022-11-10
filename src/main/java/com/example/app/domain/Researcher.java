@@ -15,4 +15,5 @@ public class Researcher extends User {
         super(firstName, lastName, affiliation, email);
     }
 
+
 }

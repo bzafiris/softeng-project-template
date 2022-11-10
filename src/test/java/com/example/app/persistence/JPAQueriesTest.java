@@ -22,7 +22,7 @@ class JPAQueriesTest {
     LocalDate now = LocalDate.of(2022, 11, 11);
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws Exception {
 
         SystemDateStub.setStub(now);
         Initializer initializer = new Initializer();
@@ -74,6 +74,9 @@ class JPAQueriesTest {
 
         Set<Author> authors = a.getAuthors();
         assertEquals(2, authors.size());
+
+        Set<ReviewInvitation> reviewInvitations = a.getReviewInvitations();
+        assertEquals(1, reviewInvitations.size());
 
     }
 }
