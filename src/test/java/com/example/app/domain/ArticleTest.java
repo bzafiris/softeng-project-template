@@ -60,7 +60,7 @@ class ArticleTest {
     }
     // expect exception
     @Test()
-    void denyInvitationOfInvitedReviewer(){
+    void denyDuplicateReviewInvitations(){
 
         DomainException exception = assertThrows(DomainException.class, () ->{
             // invite the same reviewer twice

@@ -25,6 +25,9 @@ public class Initializer {
         query = em.createNativeQuery("delete from authors");
         query.executeUpdate();
 
+        query = em.createNativeQuery("delete from reviews");
+        query.executeUpdate();
+
         query = em.createNativeQuery("delete from review_invitations");
         query.executeUpdate();
 
@@ -90,8 +93,11 @@ public class Initializer {
         a2.addAuthor(a21);
         a2.addAuthor(a22);
 
-        a1.inviteReviewer(r1);
-        a2.inviteReviewer(r1);
+        ReviewInvitation invitation1 = a1.inviteReviewer(r1);
+        ReviewInvitation invitation2 = a2.inviteReviewer(r1);
+
+        Review review = new Review(60, "Comments for author", "Confidential comments for editor", Recommendation.ACCEPT);
+        review.setInvitation(invitation1);
 
         EntityManager em = JPAUtil.createEntityManager();
         EntityTransaction tx = em.getTransaction();
@@ -104,6 +110,7 @@ public class Initializer {
         em.persist(r3);
         em.persist(a1);
         em.persist(a2);
+        em.persist(review);
 
         tx.commit();
         em.close();

@@ -79,4 +79,17 @@ class JPAQueriesTest {
         assertEquals(1, reviewInvitations.size());
 
     }
+
+    @Test
+    void queryReviews(){
+        Query query = em.createQuery("select r from Review r");
+        List<Review> result = query.getResultList();
+        assertEquals(1, result.size());
+
+        Review review = result.get(0);
+        assertNotNull(review.getInvitation());
+        assertEquals(now, review.getCreatedAt());
+        assertEquals(60, review.getScore());
+        assertEquals(Recommendation.ACCEPT, review.getRecommendation());
+    }
 }
