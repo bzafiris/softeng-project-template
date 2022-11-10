@@ -24,7 +24,7 @@ public class Author {
     @Column(name = "email", length = 50, nullable = false)
     private String email;
 
-    private Author() {
+    public Author() {
     }
 
     public Author(String firstName, String lastName, String affiliation, String email) {
