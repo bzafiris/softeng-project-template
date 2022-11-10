@@ -40,10 +40,10 @@ public class Review {
     @JoinColumn(name = "invitation_id", nullable = false)
     private ReviewInvitation invitation;
 
-    public Review() {
+    Review() {
     }
 
-    public Review(int score, String authorComments, String editorComments, Recommendation recommendation) {
+    Review(int score, String authorComments, String editorComments, Recommendation recommendation) {
         this.score = score;
         this.authorComments = authorComments;
         this.editorComments = editorComments;

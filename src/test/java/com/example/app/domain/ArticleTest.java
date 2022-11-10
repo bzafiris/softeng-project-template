@@ -58,7 +58,7 @@ class ArticleTest {
         assertEquals(2, invitations.size());
 
     }
-    // expect exception
+
     @Test()
     void denyDuplicateReviewInvitations(){
 
@@ -69,6 +69,26 @@ class ArticleTest {
 
         assertEquals(1, article.getReviewInvitations().size());
         assertEquals("Reviewer already invited", exception.getMessage());
+
+    }
+
+    @Test
+    void createReviewByInvitedReviewer(){
+
+    }
+
+    @Test
+    void denyReviewForRejectedInvitation(){
+
+    }
+
+    @Test
+    void denyReviewWithoutInvitation(){
+
+    }
+
+    @Test
+    void denyDuplicateReviewCreation(){
 
     }
 }

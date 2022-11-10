@@ -1,6 +1,7 @@
-package com.example.app.persistence;
+package com.example.app.domain;
 
 import com.example.app.domain.*;
+import com.example.app.persistence.JPAUtil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;

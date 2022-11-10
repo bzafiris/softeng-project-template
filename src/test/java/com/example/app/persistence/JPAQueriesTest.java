@@ -1,7 +1,6 @@
 package com.example.app.persistence;
 
 import com.example.app.domain.*;
-import com.example.app.util.SystemDate;
 import com.example.app.util.SystemDateStub;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
