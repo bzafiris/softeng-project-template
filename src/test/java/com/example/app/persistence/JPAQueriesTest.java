@@ -2,9 +2,13 @@ package com.example.app.persistence;
 
 import com.example.app.domain.*;
 import com.example.app.util.SystemDateStub;
+import io.quarkus.test.TestTransaction;
+import io.quarkus.test.junit.QuarkusTest;
+import net.bytebuddy.asm.Advice;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -15,22 +19,14 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@QuarkusTest
 class JPAQueriesTest {
 
+    @Inject
     EntityManager em;
-    LocalDate now = LocalDate.of(2022, 11, 11);
-
-    @BeforeEach
-    void setUp() throws Exception {
-
-        SystemDateStub.setStub(now);
-        Initializer initializer = new Initializer();
-        initializer.prepareData();
-
-        em = JPAUtil.getCurrentEntityManager();
-    }
 
     @Test
+    @TestTransaction
     void queryJournals(){
 
         Query query = em.createQuery("select j from Journal j");
@@ -44,6 +40,7 @@ class JPAQueriesTest {
     }
 
     @Test
+    @TestTransaction
     void queryResearchers(){
         Query query = em.createQuery("select r from Researcher r");
         List<Researcher> result = query.getResultList();
@@ -52,6 +49,7 @@ class JPAQueriesTest {
     }
 
     @Test
+    @TestTransaction
     void queryUsers(){
         Query query = em.createQuery("select u from User u");
         List<User> result = query.getResultList();
@@ -59,6 +57,7 @@ class JPAQueriesTest {
     }
 
     @Test
+    @TestTransaction
     void queryArticles(){
         Query query = em.createQuery("select a from Article a");
         List<Article> result = query.getResultList();
@@ -68,7 +67,7 @@ class JPAQueriesTest {
         assertNotNull(a.getJournal());
         assertEquals("Journal of Systems and Software", a.getJournal().getTitle());
         assertNotNull(a.getTitle());
-        assertEquals(now, a.getCreated_at());
+        assertEquals(LocalDate.of(2022, 11, 24), a.getCreated_at());
         assertNotNull(a.getCorrespondentAuthor());
 
         Set<Author> authors = a.getAuthors();
@@ -80,6 +79,7 @@ class JPAQueriesTest {
     }
 
     @Test
+    @TestTransaction
     void queryReviews(){
         Query query = em.createQuery("select r from Review r");
         List<Review> result = query.getResultList();
@@ -87,7 +87,7 @@ class JPAQueriesTest {
 
         Review review = result.get(0);
         assertNotNull(review.getInvitation());
-        assertEquals(now, review.getCreatedAt());
+        assertEquals(LocalDate.of(2022, 11, 1), review.getCreatedAt());
         assertEquals(60, review.getScore());
         assertEquals(Recommendation.ACCEPT, review.getRecommendation());
     }
