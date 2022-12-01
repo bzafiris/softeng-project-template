@@ -1,5 +1,8 @@
 package com.example.app.representation;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@RegisterForReflection
 public class ResearcherRepresentation {
 
     public Integer id;

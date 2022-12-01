@@ -1,5 +1,6 @@
 package com.example.app.representation;
 
+import com.example.Fixture;
 import com.example.app.domain.*;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
@@ -36,45 +37,15 @@ class ArticleMapperTest {
                 .findFirst().orElse(null);
     }
 
-    private ArticleRepresentation getArticleRepresentation(){
-        ArticleRepresentation dto = new ArticleRepresentation();
-        dto.title = "Article title";
-        dto.summary = "Article summary";
-        dto.keywords = "Article keywords";
-        dto.createdAt = LocalDate.of(2022,12, 1);
-        dto.journalIssn = "0164-1212";
-        return dto;
-    }
-
-    private ResearcherRepresentation getResearcherRepresentation(){
-        ResearcherRepresentation dto = new ResearcherRepresentation();
-        dto.id = 1000;
-        dto.firstName = "Nikos";
-        dto.lastName = "Diamantidis";
-        dto.affiliation = "AUEB";
-        dto.email = "ndia@aueb.gr";
-        return dto;
-    }
-
-    private AuthorRepresentation getAuthorRepresentation(){
-        AuthorRepresentation dto = new AuthorRepresentation();
-        dto.affiliation = "AUEB";
-        dto.firstName = "Manolis";
-        dto.lastName = "Giakoumakis";
-        dto.email = "mgia@aueb.gr";
-        return dto;
-    }
 
     @Transactional
     @Test
     void testToModel(){
 
-        ArticleRepresentation dto = getArticleRepresentation();
-        ResearcherRepresentation researcherDto = getResearcherRepresentation();
+        ArticleRepresentation dto = Fixture.getArticleRepresentation();
+        ResearcherRepresentation researcherDto = dto.researcher;
         dto.researcher = researcherDto;
-        AuthorRepresentation authorDto = getAuthorRepresentation();
-        dto.authors = new ArrayList<>();
-        dto.authors.add(authorDto);
+        AuthorRepresentation authorDto = dto.authors.get(0);
 
         Article entity = articleMapper.toModel(dto);
         assertEquals(entity.getTitle(), dto.title);
@@ -92,6 +63,8 @@ class ArticleMapperTest {
         Journal journal = entity.getJournal();
         assertNotNull(journal);
         assertEquals("Journal of Systems and Software", journal.getTitle());
+
+        assertNotNull(entity.getCorrespondentAuthor());
 
     }
 
@@ -113,7 +86,7 @@ class ArticleMapperTest {
         assertEquals(article.getId(), articleRepresentation.id);
         assertEquals(article.getSummary(), articleRepresentation.summary);
         assertEquals(article.getKeywords(), articleRepresentation.keywords);
-        assertEquals(article.getCreatedAt(), articleRepresentation.createdAt);
+        assertEquals(article.getCreatedAt().toString(), articleRepresentation.createdAt);
         assertEquals(article.getJournal().getIssn(), articleRepresentation.journalIssn);
 
         assertEquals(researcher.getFirstName(), articleRepresentation.researcher.firstName);

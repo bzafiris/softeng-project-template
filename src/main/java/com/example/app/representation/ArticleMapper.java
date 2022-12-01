@@ -18,6 +18,7 @@ public abstract class ArticleMapper {
     @Mapping(target = "researcher", source = "correspondentAuthor")
     public abstract ArticleRepresentation toRepresentation(Article entity);
 
+    @Mapping(target = "correspondentAuthor", source = "researcher")
     @Mapping(target = "reviewInvitations", ignore = true)
     public abstract Article toModel(ArticleRepresentation dto);
 

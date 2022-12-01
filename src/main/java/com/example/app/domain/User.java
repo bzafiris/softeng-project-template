@@ -39,6 +39,10 @@ public abstract class User {
         this.email = email;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }
