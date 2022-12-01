@@ -71,7 +71,7 @@ class JPAQueriesTest {
         assertEquals(2, authors.size());
 
         Set<ReviewInvitation> reviewInvitations = a.getReviewInvitations();
-        assertEquals(1, reviewInvitations.size());
+        assertEquals(2, reviewInvitations.size());
 
     }
 
@@ -80,7 +80,7 @@ class JPAQueriesTest {
     void queryReviews(){
         Query query = em.createQuery("select r from Review r");
         List<Review> result = query.getResultList();
-        assertEquals(1, result.size());
+        assertEquals(3, result.size());
 
         Review review = result.get(0);
         assertNotNull(review.getInvitation());

@@ -46,6 +46,13 @@ insert into review_invitations(id, reviewer_id, article_id, created_at, accepted
     values(5000, 1000, 4000, '20221124', null);
 insert into review_invitations(id, reviewer_id, article_id, created_at, accepted)
     values(5001, 1001, 4001, '20221124', null);    
+insert into review_invitations(id, reviewer_id, article_id, created_at, accepted)
+    values(5002, 1001, 4000, '20221124', null);
+
 
 insert into reviews(id, score, author_comments, editor_comments, recommendation, submitted, created_at, submitted_at, invitation_id)
-    values(6000, 60, 'Comments for author', 'Confidential comments for editor', 'ACCEPT', false, '20221101', '20221124', 5000);
+    values(6000, 60, 'Comment 1', 'Confidential comments for editor', 'ACCEPT', false, '20221101', '20221124', 5000);
+insert into reviews(id, score, author_comments, editor_comments, recommendation, submitted, created_at, submitted_at, invitation_id)
+    values(6001, 40, 'Comment 2', 'Confidential comments for editor', 'REJECT', false, '20221101', '20221124', 5001);
+insert into reviews(id, score, author_comments, editor_comments, recommendation, submitted, created_at, submitted_at, invitation_id)
+    values(6002, 30, 'Comment 3', 'Confidential comments for editor', 'REJECT', false, '20221101', '20221124', 5002);
