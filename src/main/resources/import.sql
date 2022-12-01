@@ -29,11 +29,18 @@ insert into articles(id, title, summary, keywords, created_at, journal_id, corre
     'Code review is a software development practice aimed at assessing code quality, finding defects, and sharing knowledge among developers ...',
     'Modern code review\n Software visualization\n Empirical software engineering',
     '20221124', 3000, 1002);
-    
+
+insert into articles(id, title, summary, keywords, created_at, journal_id, correspondent_author_id)
+    values(4002, 'Graph-based visualization of merge requests: a survey',
+    'Code review is a software development practice aimed at assessing code quality, finding defects, and sharing knowledge among developers ...',
+    'Modern code review\n Software visualization\n Empirical software engineering',
+    '20221124', 3000, 1002);
+
 insert into article_authors(article_id, author_id) values(4000, 2000);
 insert into article_authors(article_id, author_id) values(4000, 2001);
 insert into article_authors(article_id, author_id) values(4001, 2002);
 insert into article_authors(article_id, author_id) values(4001, 2003);
+insert into article_authors(article_id, author_id) values(4002, 2003);
 
 insert into review_invitations(id, reviewer_id, article_id, created_at, accepted)
     values(5000, 1000, 4000, '20221124', null);

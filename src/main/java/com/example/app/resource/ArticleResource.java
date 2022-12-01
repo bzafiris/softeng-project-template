@@ -8,9 +8,7 @@ import com.example.app.representation.ArticleRepresentation;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -49,4 +47,18 @@ public class ArticleResource {
 
     }
 
+    @DELETE
+    @Path("{id:[0-9]+}")
+    @Transactional
+    public Response removeArticle(@PathParam("id") Integer articleId){
+        Article article = articleRepository
+                .find("id", articleId)
+                .firstResult();
+
+        if (article == null){
+            return Response.status(404).build();
+        }
+        articleRepository.delete("id", articleId);
+        return Response.noContent().build();
+    }
 }

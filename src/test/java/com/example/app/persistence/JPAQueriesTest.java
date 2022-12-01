@@ -58,7 +58,7 @@ class JPAQueriesTest {
     void queryArticles(){
         Query query = em.createQuery("select a from Article a");
         List<Article> result = query.getResultList();
-        assertEquals(2, result.size());
+        assertEquals(3, result.size());
 
         Article a = result.get(0);
         assertNotNull(a.getJournal());
