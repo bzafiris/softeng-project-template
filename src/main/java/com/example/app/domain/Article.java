@@ -58,6 +58,10 @@ public class Article {
         this.createdAt = createdAt;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }
