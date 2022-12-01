@@ -1,11 +1,8 @@
 package com.example.app.persistence;
 
 import com.example.app.domain.*;
-import com.example.app.util.SystemDateStub;
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
-import net.bytebuddy.asm.Advice;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
@@ -67,7 +64,7 @@ class JPAQueriesTest {
         assertNotNull(a.getJournal());
         assertEquals("Journal of Systems and Software", a.getJournal().getTitle());
         assertNotNull(a.getTitle());
-        assertEquals(LocalDate.of(2022, 11, 24), a.getCreated_at());
+        assertEquals(LocalDate.of(2022, 11, 24), a.getCreatedAt());
         assertNotNull(a.getCorrespondentAuthor());
 
         Set<Author> authors = a.getAuthors();

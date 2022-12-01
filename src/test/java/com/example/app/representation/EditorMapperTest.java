@@ -13,7 +13,7 @@ class EditorMapperTest {
 
     @BeforeEach
     public void setup(){
-        mapper = Mappers.getMapper(EditorMapper.class);
+        mapper = new EditorMapperImpl();
     }
 
     @Test

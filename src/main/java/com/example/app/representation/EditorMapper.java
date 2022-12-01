@@ -8,6 +8,7 @@ import org.mapstruct.Mapper;
         injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public abstract class EditorMapper {
 
-    public abstract EditorRepresentation toRepresentation(Editor domain);
+    public abstract EditorRepresentation toRepresentation(Editor entity);
 
 }
+

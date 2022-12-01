@@ -26,7 +26,7 @@ public class Article {
     private String keywords;
 
     @Column(name="created_at")
-    private LocalDate created_at = SystemDate.now();
+    private LocalDate createdAt = SystemDate.now();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "journal_id", nullable = false)
@@ -50,6 +50,14 @@ public class Article {
     public Article() {
     }
 
+    public Article(Integer id, String title, String summary, String keywords, LocalDate createdAt) {
+        this.id = id;
+        this.title = title;
+        this.summary = summary;
+        this.keywords = keywords;
+        this.createdAt = createdAt;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -66,8 +74,8 @@ public class Article {
         return keywords;
     }
 
-    public LocalDate getCreated_at() {
-        return created_at;
+    public LocalDate getCreatedAt() {
+        return createdAt;
     }
 
     public void setTitle(String title) {
