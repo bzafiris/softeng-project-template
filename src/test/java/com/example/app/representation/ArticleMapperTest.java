@@ -1,24 +1,22 @@
 package com.example.app.representation;
 
 import com.example.app.domain.*;
-import org.junit.jupiter.api.BeforeEach;
+import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
-import org.mapstruct.factory.Mappers;
 
+import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
+@QuarkusTest
 class ArticleMapperTest {
 
-    private ArticleMapper mapper;
-
-    @BeforeEach
-    public void setup(){
-        mapper = new ArticleMapperImpl();
-    }
+    @Inject
+    private ArticleMapper articleMapper;
 
     private List<Author> getAuthors(){
         return List.of(new Author("Nikos", "Diamantidis", "AUEB", "nad@aueb.gr"),
@@ -26,7 +24,7 @@ class ArticleMapperTest {
     }
 
     private Journal getJournal(){
-        return new Journal("Journal title", "1234");
+        return new Journal("Journal of Systems and Software", "0164-1212");
     }
 
     private Researcher getResearcher(){
@@ -36,6 +34,65 @@ class ArticleMapperTest {
     private Author findAuthor(List<Author> authors, String email){
         return authors.stream().filter(a -> a.getEmail().contains(email))
                 .findFirst().orElse(null);
+    }
+
+    private ArticleRepresentation getArticleRepresentation(){
+        ArticleRepresentation dto = new ArticleRepresentation();
+        dto.title = "Article title";
+        dto.summary = "Article summary";
+        dto.keywords = "Article keywords";
+        dto.createdAt = LocalDate.of(2022,12, 1);
+        dto.journalIssn = "0164-1212";
+        return dto;
+    }
+
+    private ResearcherRepresentation getResearcherRepresentation(){
+        ResearcherRepresentation dto = new ResearcherRepresentation();
+        dto.id = 1000;
+        dto.firstName = "Nikos";
+        dto.lastName = "Diamantidis";
+        dto.affiliation = "AUEB";
+        dto.email = "ndia@aueb.gr";
+        return dto;
+    }
+
+    private AuthorRepresentation getAuthorRepresentation(){
+        AuthorRepresentation dto = new AuthorRepresentation();
+        dto.affiliation = "AUEB";
+        dto.firstName = "Manolis";
+        dto.lastName = "Giakoumakis";
+        dto.email = "mgia@aueb.gr";
+        return dto;
+    }
+
+    @Transactional
+    @Test
+    void testToModel(){
+
+        ArticleRepresentation dto = getArticleRepresentation();
+        ResearcherRepresentation researcherDto = getResearcherRepresentation();
+        dto.researcher = researcherDto;
+        AuthorRepresentation authorDto = getAuthorRepresentation();
+        dto.authors = new ArrayList<>();
+        dto.authors.add(authorDto);
+
+        Article entity = articleMapper.toModel(dto);
+        assertEquals(entity.getTitle(), dto.title);
+        assertEquals(entity.getKeywords(), dto.keywords);
+        assertEquals(entity.getSummary(), dto.summary);
+        assertEquals(entity.getCreatedAt(), LocalDate.of(2022, 12, 1));
+
+        Author author = entity.getAuthors().stream().findFirst().get();
+        assertEquals(author.getId(), authorDto.id);
+        assertEquals(author.getEmail(), authorDto.email);
+        assertEquals(author.getFirstName(), authorDto.firstName);
+        assertEquals(author.getLastName(), authorDto.lastName);
+        assertEquals(author.getAffiliation(), authorDto.affiliation);
+
+        Journal journal = entity.getJournal();
+        assertNotNull(journal);
+        assertEquals("Journal of Systems and Software", journal.getTitle());
+
     }
 
     @Test
@@ -51,7 +108,7 @@ class ArticleMapperTest {
         article.addAuthor(authors.get(0));
         article.addAuthor(authors.get(1));
 
-        ArticleRepresentation articleRepresentation = mapper.toRepresentation(article);
+        ArticleRepresentation articleRepresentation = articleMapper.toRepresentation(article);
         assertEquals(article.getTitle(), articleRepresentation.title);
         assertEquals(article.getId(), articleRepresentation.id);
         assertEquals(article.getSummary(), articleRepresentation.summary);

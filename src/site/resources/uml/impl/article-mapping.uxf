@@ -1,0 +1,59 @@
+<diagram program="umletino" version="15.0.0"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>220</x><y>240</y><w>150</w><h>110</h></coordinates><panel_attributes>Article
+--
+id: Integer
+title: String
+summary: String
+keywords: String
+createdAt: LocalDate
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>270</x><y>80</y><w>130</w><h>80</h></coordinates><panel_attributes>Journal
+--
+id: Integer
+title: String
+issn: String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>220</x><y>430</y><w>100</w><h>30</h></coordinates><panel_attributes>Researcher</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>290</x><y>150</y><w>70</w><h>110</h></coordinates><panel_attributes>lt=-
+m2=1
+r2=-journal</panel_attributes><additional_attributes>10;90;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>240</x><y>340</y><w>150</w><h>110</h></coordinates><panel_attributes>lt=-
+m2=1
+r2=-correspondentAuthor</panel_attributes><additional_attributes>10;10;10;90</additional_attributes></element><element><id>UMLClass</id><coordinates><x>80</x><y>70</y><w>130</w><h>100</h></coordinates><panel_attributes>Author
+--
+id: Integer
+firstName: String
+lastName: String
+affiliation: String
+email: String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>80</x><y>240</y><w>120</w><h>120</h></coordinates><panel_attributes>User
+--
+id: Integer
+firstName: String
+lastName: String
+affiliation: String
+email: String
+password: String</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>130</x><y>350</y><w>110</w><h>110</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;90;90</additional_attributes></element><element><id>Relation</id><coordinates><x>160</x><y>160</y><w>110</w><h>100</h></coordinates><panel_attributes>lt=-
+m2=*
+r2=-authors (Set)</panel_attributes><additional_attributes>60;80;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>490</x><y>180</y><w>150</w><h>130</h></coordinates><panel_attributes>ArticleRepresentation
+--
+id: Integer
+title: String
+summary: String
+keywords: String
+createdAt: LocalDate
+journalIssn: String
+bg=light_gray
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>490</x><y>390</y><w>170</w><h>110</h></coordinates><panel_attributes>ResearcherRepresentation
+--
+id: Integer
+firstName: String
+lastName: String
+affiliation: String
+email: String
+bg=light_gray</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>540</x><y>300</y><w>90</w><h>110</h></coordinates><panel_attributes>lt=-
+m2=1
+r2=-researcher</panel_attributes><additional_attributes>10;10;10;90</additional_attributes></element><element><id>UMLClass</id><coordinates><x>670</x><y>80</y><w>130</w><h>100</h></coordinates><panel_attributes>AuthorRepresentation
+--
+id: Integer
+firstName: String
+lastName: String
+affiliation: String
+email: String
+
+bg=light_gray</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>560</x><y>100</y><w>130</w><h>100</h></coordinates><panel_attributes>lt=-
+m2=*
+r2=-authors (List)</panel_attributes><additional_attributes>10;80;10;20;110;20</additional_attributes></element></diagram>

@@ -34,6 +34,10 @@ public class Author {
         this.email = email;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
     public String getFirstName() {
         return firstName;
     }
