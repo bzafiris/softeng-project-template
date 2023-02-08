@@ -14,6 +14,9 @@ public class Initializer {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
+        em.createNativeQuery("delete from review_invitations")
+                .executeUpdate();
+
         em.createNativeQuery("delete from articles_authors")
                 .executeUpdate();
 
@@ -73,6 +76,9 @@ public class Initializer {
         a1.setCorrespondentAuthor(r2);
         a1.addAuthor(a11);
         a1.addAuthor(a12);
+
+        a1.inviteReviewer(r1);
+        a1.inviteReviewer(r3);
 
         Article a2 = new Article();
         a2.setTitle("Graph-based visualization of merge requests for code review");

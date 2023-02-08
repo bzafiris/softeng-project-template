@@ -14,4 +14,6 @@ public class Researcher extends User {
     public Researcher(String name, String lastName, String affiliation, String email) {
         super(name, lastName, affiliation, email);
     }
+
+
 }

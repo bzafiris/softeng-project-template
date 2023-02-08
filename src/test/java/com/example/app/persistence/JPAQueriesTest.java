@@ -109,4 +109,19 @@ public class JPAQueriesTest {
 
     }
 
+    @Test
+    public void listArticleWithReviewInvitations(){
+        List<Article> result = em.createQuery("select distinct a from Article a " +
+                        "   join fetch a.reviewInvitations r " +
+                        "   where a.correspondentAuthor.lastName = :lastName")
+                .setParameter("lastName", "Rani")
+                .getResultList();
+
+        em.close();
+
+        assertEquals(1, result.size());
+        assertEquals(2, result.get(0).getReviewInvitations().size());
+
+    }
+
 }

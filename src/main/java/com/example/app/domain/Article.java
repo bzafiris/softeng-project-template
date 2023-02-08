@@ -4,7 +4,9 @@ import com.example.app.util.SystemDate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -39,6 +41,9 @@ public class Article {
     @JoinTable(name = "articles_authors", joinColumns = {@JoinColumn(name = "article_id")},
             inverseJoinColumns = {@JoinColumn(name = "author_id")})
     private Set<Author> authors = new HashSet<>();
+
+    @OneToMany(mappedBy = "article", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private List<ReviewInvitation> reviewInvitations = new ArrayList<>();
 
     public Article() {
     }
@@ -119,5 +124,29 @@ public class Article {
         if (author != null){
             authors.remove(author);
         }
+    }
+
+    public ReviewInvitation inviteReviewer(Researcher r){
+
+        // should not be already invited
+        for(ReviewInvitation inv: reviewInvitations){
+            if (inv.getResearcher().equals(r)){
+                // better throw application level exception
+                return null;
+            }
+        }
+        // should not be the correspondent author
+        if (this.correspondentAuthor.equals(r)){
+            return null;
+        }
+
+        ReviewInvitation invitation = new ReviewInvitation(r, this);
+        reviewInvitations.add(invitation);
+
+        return invitation;
+    }
+
+    public List<ReviewInvitation> getReviewInvitations() {
+        return new ArrayList<>(reviewInvitations);
     }
 }
