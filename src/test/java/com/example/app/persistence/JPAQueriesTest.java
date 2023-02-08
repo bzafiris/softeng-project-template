@@ -92,9 +92,10 @@ public class JPAQueriesTest {
     @Test
     public void listArticlesFetchDependencies(){
 
-        List<Article> result = em.createQuery("select a from Article a " +
+        List<Article> result = em.createQuery("select distinct a from Article a " +
                         "   join fetch a.journal j" +
-                        "   join fetch a.correspondentAuthor r ")
+                        "   join fetch a.correspondentAuthor r " +
+                        "   join fetch a.authors ")
                 .getResultList();
 
         assertEquals(2, result.size());
@@ -104,6 +105,7 @@ public class JPAQueriesTest {
         Article a = result.get(0);
         assertNotNull(a.getJournal().getTitle());
         assertNotNull(a.getCorrespondentAuthor().getLastName());
+        assertEquals(2, a.getAuthors().size());
 
     }
 

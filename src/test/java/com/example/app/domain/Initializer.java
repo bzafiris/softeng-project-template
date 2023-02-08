@@ -14,6 +14,12 @@ public class Initializer {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
+        em.createNativeQuery("delete from articles_authors")
+                .executeUpdate();
+
+        em.createNativeQuery("delete from authors")
+                .executeUpdate();
+
         em.createNativeQuery("delete from articles")
                 .executeUpdate();
 
@@ -65,6 +71,8 @@ public class Initializer {
                 "Systematic literature review");
         a1.setJournal(j1);
         a1.setCorrespondentAuthor(r2);
+        a1.addAuthor(a11);
+        a1.addAuthor(a12);
 
         Article a2 = new Article();
         a2.setTitle("Graph-based visualization of merge requests for code review");
@@ -75,6 +83,8 @@ public class Initializer {
                 "Empirical software engineering");
         a2.setJournal(j1);
         a2.setCorrespondentAuthor(r3);
+        a2.addAuthor(a21);
+        a2.addAuthor(a22);
 
         em.persist(r1);
         em.persist(r2);

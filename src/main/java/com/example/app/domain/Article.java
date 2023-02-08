@@ -4,6 +4,8 @@ import com.example.app.util.SystemDate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "articles")
@@ -32,6 +34,11 @@ public class Article {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "researcher_id", nullable = false)
     private Researcher correspondentAuthor;
+
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "articles_authors", joinColumns = {@JoinColumn(name = "article_id")},
+            inverseJoinColumns = {@JoinColumn(name = "author_id")})
+    private Set<Author> authors = new HashSet<>();
 
     public Article() {
     }
@@ -96,5 +103,21 @@ public class Article {
 
     public void setCorrespondentAuthor(Researcher correspondentAuthor) {
         this.correspondentAuthor = correspondentAuthor;
+    }
+
+    public Set<Author> getAuthors() {
+        return new HashSet<>(authors);
+    }
+
+    public void addAuthor(Author author){
+        if (author != null){
+            authors.add(author);
+        }
+    }
+
+    public void removeAuthor(Author author){
+        if (author != null){
+            authors.remove(author);
+        }
     }
 }
