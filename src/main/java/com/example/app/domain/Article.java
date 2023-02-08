@@ -146,6 +146,20 @@ public class Article {
         return invitation;
     }
 
+    public Review createReview(Researcher reviewer) {
+        // check invitation exists
+        for(ReviewInvitation invitation: reviewInvitations){
+            if (invitation.getResearcher().equals(reviewer)){
+                Review review = new Review();
+                review.setInvitation(invitation);
+                invitation.setReview(review);
+                review.setCreatedAt(SystemDate.now());
+                return review;
+            }
+        }
+        return null;
+    }
+
     public List<ReviewInvitation> getReviewInvitations() {
         return new ArrayList<>(reviewInvitations);
     }

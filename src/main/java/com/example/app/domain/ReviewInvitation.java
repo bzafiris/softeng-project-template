@@ -27,6 +27,9 @@ public class ReviewInvitation {
     @Column(name = "accepted")
     private Boolean accepted = null;
 
+    @OneToOne(mappedBy = "invitation")
+    private Review review;
+
     public ReviewInvitation() {
     }
 
@@ -75,4 +78,11 @@ public class ReviewInvitation {
         this.accepted = accepted;
     }
 
+    public Review getReview() {
+        return review;
+    }
+
+    public void setReview(Review review) {
+        this.review = review;
+    }
 }
