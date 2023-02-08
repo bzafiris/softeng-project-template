@@ -16,6 +16,10 @@ public class Journal {
     @Column(name = "issn", nullable = false, length = 10, unique = true)
     private String issn;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "editor_id", nullable = false)
+    private Editor editor;
+
     public Journal() {
     }
 
@@ -46,5 +50,13 @@ public class Journal {
 
     public void setIssn(String issn) {
         this.issn = issn;
+    }
+
+    public Editor getEditor() {
+        return editor;
+    }
+
+    public void setEditor(Editor editor) {
+        this.editor = editor;
     }
 }
