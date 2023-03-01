@@ -18,23 +18,26 @@ insert into users(id, user_type, first_name, last_name, affiliation, email, pass
 
 insert into journals(id, title, issn, editor_id) values (3000, 'Journal of Systems and Software', '0164-1212', 1003);
 
-insert into articles(id, title, summary, keywords, created_at, journal_id, correspondent_author_id)
+insert into articles(id, title, summary, keywords, created_at, journal_id, correspondent_author_id,
+    submission_date)
     values(4000, 'A decade of code comment quality assessment: A systematic literature review',
     'Code comments are important artifacts in software systems and play a paramount role in many software engineering (SE) tasks...',
     'Code comments\n Documentation quality\n Systematic literature review',
-    '20221124', 3000, 1001);
+    '20221124', 3000, 1001, '20221124');
 
-insert into articles(id, title, summary, keywords, created_at, journal_id, correspondent_author_id)
+insert into articles(id, title, summary, keywords, created_at, journal_id, correspondent_author_id,
+    submission_date)
     values(4001, 'Graph-based visualization of merge requests for code review',
     'Code review is a software development practice aimed at assessing code quality, finding defects, and sharing knowledge among developers ...',
     'Modern code review\n Software visualization\n Empirical software engineering',
-    '20221124', 3000, 1002);
+    '20221124', 3000, 1002, '20221124');
 
-insert into articles(id, title, summary, keywords, created_at, journal_id, correspondent_author_id)
+insert into articles(id, title, summary, keywords, created_at, journal_id, correspondent_author_id,
+    submission_date)
     values(4002, 'Graph-based visualization of merge requests: a survey',
     'Code review is a software development practice aimed at assessing code quality, finding defects, and sharing knowledge among developers ...',
     'Modern code review\n Software visualization\n Empirical software engineering',
-    '20221124', 3000, 1002);
+    '20221124', 3000, 1002, '20221124');
 
 insert into article_authors(article_id, author_id) values(4000, 2000);
 insert into article_authors(article_id, author_id) values(4000, 2001);

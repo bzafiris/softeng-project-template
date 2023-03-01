@@ -114,7 +114,7 @@ public class Article {
     }
 
     public Set<Author> getAuthors() {
-        return new HashSet<>(authors);
+        return authors;
     }
 
     public void addAuthor(Author author){

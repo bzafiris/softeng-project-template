@@ -78,7 +78,7 @@ class PanacheRepositoryTest {
     @Test
     void conditionalUpdate(){
 
-        int updateCount = userRepository.update("password = ?1 where firstName = ?2", "123", "Nikos");
+        int updateCount = userRepository.update("password = ?1 where name = ?2", "123", "Nikos");
         assertEquals(updateCount, 1);
 
         User user = userRepository.find("password = ?1", "123").firstResultOptional().orElse(null);
@@ -95,7 +95,7 @@ class PanacheRepositoryTest {
 
     @Test
     void listCriteriaOnAssociation(){
-        List<Review> reviews = reviewRepository.list("invitation.reviewer.firstName = ?1", "Nikos");
+        List<Review> reviews = reviewRepository.list("invitation.researcher.name = ?1", "Nikos");
         assertEquals(1, reviews.size());
 
     }

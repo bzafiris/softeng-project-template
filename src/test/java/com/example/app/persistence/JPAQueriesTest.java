@@ -6,10 +6,12 @@ import com.example.app.domain.Journal;
 import com.example.app.domain.User;
 import com.example.app.util.SystemDate;
 import com.example.app.util.SystemDateStub;
+import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.util.List;
@@ -17,20 +19,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@QuarkusTest
 public class JPAQueriesTest {
 
+    @Inject
     EntityManager em;
-
-    @BeforeEach
-    public void setup(){
-
-        SystemDateStub.setStub(LocalDate.of(2023, 2, 8));
-
-        Initializer initializer = new Initializer();
-        initializer.prepareData();
-
-        em = JPAUtil.getCurrentEntityManager();
-    }
 
     @AfterEach
     public void tearDown(){
@@ -54,10 +47,10 @@ public class JPAQueriesTest {
         List<Journal> result = em.createQuery("select j from Journal j join fetch j.editor e")
                 .getResultList();
 
-        em.close();
-
         assertEquals(1, result.size());
         Journal j = result.get(0);
+
+        em.detach(j);
         assertEquals("0164-1212", j.getIssn());
         assertEquals("Avgeriou", j.getEditor().getLastName());
     }
@@ -83,10 +76,10 @@ public class JPAQueriesTest {
         List<Article> result = em.createQuery("select a from Article a")
                 .getResultList();
 
-        assertEquals(2, result.size());
+        assertEquals(3, result.size());
 
         Article a = result.get(0);
-        assertEquals(LocalDate.of(2023, 2, 8), a.getSubmissionDate());
+        assertEquals(LocalDate.of(2022, 11, 24), a.getSubmissionDate());
     }
 
     @Test
@@ -98,11 +91,12 @@ public class JPAQueriesTest {
                         "   join fetch a.authors ")
                 .getResultList();
 
-        assertEquals(2, result.size());
-
-        em.close();
+        assertEquals(3, result.size());
 
         Article a = result.get(0);
+
+        em.detach(a);
+
         assertNotNull(a.getJournal().getTitle());
         assertNotNull(a.getCorrespondentAuthor().getLastName());
         assertEquals(2, a.getAuthors().size());
@@ -117,7 +111,7 @@ public class JPAQueriesTest {
                 .setParameter("lastName", "Rani")
                 .getResultList();
 
-        em.close();
+        em.detach(result.get(0));
 
         assertEquals(1, result.size());
         assertEquals(2, result.get(0).getReviewInvitations().size());

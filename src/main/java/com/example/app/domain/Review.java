@@ -119,16 +119,16 @@ public class Review {
         invitation.setReview(this);
     }
 
-    public void submit() {
-//        if (submitted) {
-//            throw new DomainException("Review already submitted");
-//        }
-//
-//        if (editorComments == null || authorComments == null || recommendation == null
-//                || score == null) {
-//            throw new DomainException("Submission of incomplete reviews is not allowed");
-//        }
-//        submitted = true;
-//        submittedAt = SystemDate.now();
+    public void submit() throws DomainException {
+        if (submitted) {
+            throw new DomainException("Review already submitted");
+        }
+
+        if (editorComments == null || authorComments == null || recommendation == null
+                || score == null) {
+            throw new DomainException("Submission of incomplete reviews is not allowed");
+        }
+        submitted = true;
+        submittedAt = SystemDate.now();
     }
 }

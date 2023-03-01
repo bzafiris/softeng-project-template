@@ -6,9 +6,12 @@ import com.example.app.persistence.JournalRepository;
 import org.mapstruct.*;
 
 import javax.inject.Inject;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Mapper(componentModel = "cdi",
-        injectionStrategy = InjectionStrategy.CONSTRUCTOR)
+        injectionStrategy = InjectionStrategy.CONSTRUCTOR,
+        uses = {ResearcherMapper.class, AuthorMapper.class})
 public abstract class ArticleMapper {
 
     @Inject
@@ -16,6 +19,7 @@ public abstract class ArticleMapper {
 
     @Mapping(target = "journalIssn", source = "journal.issn")
     @Mapping(target = "researcher", source = "correspondentAuthor")
+    @Mapping(target = "createdAt", source = "createdAt", qualifiedByName = "dateFormatter")
     public abstract ArticleRepresentation toRepresentation(Article entity);
 
     @Mapping(target = "correspondentAuthor", source = "researcher")
@@ -31,6 +35,12 @@ public abstract class ArticleMapper {
                     .firstResultOptional().orElse(null);
         }
         article.setJournal(journal);
+    }
+
+    @Named("dateFormatter")
+    public String formatDate(LocalDate date){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return date.format(formatter);
     }
 }
 
