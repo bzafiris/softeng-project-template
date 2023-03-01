@@ -17,6 +17,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+/**
+ * Κλάση με παραδείγματα χρήσης της βιβλιοθήκης Panache
+ */
 @QuarkusTest
 class PanacheRepositoryTest {
 
@@ -99,9 +102,5 @@ class PanacheRepositoryTest {
         assertEquals(1, reviews.size());
 
     }
-
-
-
-
 
 }
