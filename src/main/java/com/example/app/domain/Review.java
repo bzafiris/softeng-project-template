@@ -40,10 +40,10 @@ public class Review {
     @JoinColumn(name = "invitation_id", nullable = false)
     private ReviewInvitation invitation;
 
-    Review() {
+    public Review() {
     }
 
-    Review(int score, String authorComments, String editorComments, Recommendation recommendation) {
+    public Review(int score, String authorComments, String editorComments, Recommendation recommendation) {
         this.score = score;
         this.authorComments = authorComments;
         this.editorComments = editorComments;
@@ -119,16 +119,16 @@ public class Review {
         invitation.setReview(this);
     }
 
-    public void submit() throws DomainException {
-        if (submitted) {
-            throw new DomainException("Review already submitted");
-        }
-
-        if (editorComments == null || authorComments == null || recommendation == null
-                || score == null) {
-            throw new DomainException("Submission of incomplete reviews is not allowed");
-        }
-        submitted = true;
-        submittedAt = SystemDate.now();
+    public void submit() {
+//        if (submitted) {
+//            throw new DomainException("Review already submitted");
+//        }
+//
+//        if (editorComments == null || authorComments == null || recommendation == null
+//                || score == null) {
+//            throw new DomainException("Submission of incomplete reviews is not allowed");
+//        }
+//        submitted = true;
+//        submittedAt = SystemDate.now();
     }
 }

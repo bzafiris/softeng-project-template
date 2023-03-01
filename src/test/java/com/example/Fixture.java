@@ -26,9 +26,9 @@ public class Fixture {
 
         ReviewInvitation entity = new ReviewInvitation();
         entity.setArticle(article);
-        entity.setReviewer(researcher);
+        entity.setResearcher(researcher);
         entity.setAccepted(true);
-        entity.setCreated_at(LocalDate.of(2022, 12, 1));
+        entity.setCreatedAt(LocalDate.of(2022, 12, 1));
 
         return entity;
     }

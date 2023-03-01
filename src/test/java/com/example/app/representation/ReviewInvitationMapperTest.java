@@ -22,8 +22,8 @@ class ReviewInvitationMapperTest {
 
         ReviewInvitationRepresentation dto = mapper.toRepresentation(entity);
         assertEquals(entity.getAccepted(), dto.accepted);
-        assertEquals(entity.getReviewer().getEmail(), dto.researcherEmail);
-        assertEquals(entity.getReviewer().getId(), dto.researcherId);
+        assertEquals(entity.getResearcher().getEmail(), dto.researcherEmail);
+        assertEquals(entity.getResearcher().getId(), dto.researcherId);
         assertEquals(entity.getArticle().getId(), dto.articleId);
         assertEquals("2022-12-01", dto.createdAt);
 

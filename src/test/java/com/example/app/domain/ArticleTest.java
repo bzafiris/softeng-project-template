@@ -1,94 +1,62 @@
 package com.example.app.domain;
 
+import com.example.app.util.SystemDate;
 import com.example.app.util.SystemDateStub;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ArticleTest {
 
-    Article article;
-    LocalDate now = LocalDate.of(2022, 11, 11);
-    LocalDate invitationDate = LocalDate.of(2022, 11, 20);
-    private ReviewInvitation invitation;
-    private Researcher researcher;
+    private Article article;
+    private Researcher reviewer1;
+    private static final LocalDate NOW = LocalDate.of(2023, 2, 8);
+    private Researcher author;
 
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp() {
 
-        SystemDateStub.setStub(now);
+        SystemDateStub.setStub(NOW);
 
         article = new Article();
-        Author author = new Author();
-        author.setEmail("mgia@aueb.gr");
-        article.addAuthor(author);
+        author = new Researcher();
+        author.setEmail("a@aueb.gr");
 
-        SystemDateStub.setStub(invitationDate);
-        researcher = new Researcher();
-        researcher.setEmail("bob@aueb.gr");
+        reviewer1 = new Researcher();
+        reviewer1.setEmail("b@aueb.gr");
 
-        invitation = article.inviteReviewer(researcher);
+        article.setCorrespondentAuthor(author);
+
     }
 
     @Test
-    void inviteNewReviewer() throws Exception {
-
+    public void inviteReviewer(){
+        ReviewInvitation invitation = article.inviteReviewer(reviewer1);
         assertNotNull(invitation);
-        assertEquals(invitationDate, invitation.getCreated_at());
-        assertEquals(researcher, invitation.getReviewer());
+        assertEquals(NOW, invitation.getCreatedAt());
+        assertEquals(reviewer1, invitation.getResearcher());
         assertEquals(article, invitation.getArticle());
-        assertNull(invitation.getAccepted());
-
     }
 
     @Test
-    void inviteDifferentReviewers() throws Exception {
+    public void denyDuplicateInvitations(){
 
-        Researcher mary = new Researcher();
-        mary.setEmail("mary@aueb.gr");
+        Researcher reviewer2 = new Researcher();
+        reviewer2.setEmail("b@aueb.gr");
 
-        ReviewInvitation invitation = article.inviteReviewer(mary);
+        ReviewInvitation invitation = article.inviteReviewer(reviewer1);
         assertNotNull(invitation);
 
-        Set<ReviewInvitation> invitations = article.getReviewInvitations();
-        assertEquals(2, invitations.size());
-
-    }
-
-    @Test()
-    void denyDuplicateReviewInvitations(){
-
-        DomainException exception = assertThrows(DomainException.class, () ->{
-            // invite the same reviewer twice
-            article.inviteReviewer(researcher);
-        });
-
-        assertEquals(1, article.getReviewInvitations().size());
-        assertEquals("Reviewer already invited", exception.getMessage());
-
+        ReviewInvitation invitation2 = article.inviteReviewer(reviewer2);
+        assertNull(invitation2);
     }
 
     @Test
-    void createReviewByInvitedReviewer(){
-
-    }
-
-    @Test
-    void denyReviewForRejectedInvitation(){
-
-    }
-
-    @Test
-    void denyReviewWithoutInvitation(){
-
-    }
-
-    @Test
-    void denyDuplicateReviewCreation(){
-
+    public void denyInvitationToCorrespondentAuthor(){
+        ReviewInvitation invitation = article.inviteReviewer(author);
+        assertNull(invitation);
     }
 }

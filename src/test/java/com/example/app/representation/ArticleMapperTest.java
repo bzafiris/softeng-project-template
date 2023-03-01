@@ -56,7 +56,7 @@ class ArticleMapperTest {
         Author author = entity.getAuthors().stream().findFirst().get();
         assertEquals(author.getId(), authorDto.id);
         assertEquals(author.getEmail(), authorDto.email);
-        assertEquals(author.getFirstName(), authorDto.firstName);
+        assertEquals(author.getName(), authorDto.firstName);
         assertEquals(author.getLastName(), authorDto.lastName);
         assertEquals(author.getAffiliation(), authorDto.affiliation);
 
@@ -71,8 +71,9 @@ class ArticleMapperTest {
     @Test
     void testToRepresentation(){
 
-        Article article = new Article(1, "Title", "Summary", "Keywords",
-                LocalDate.of(2022, 12, 1));
+        Article article = new Article("Title", "Summary", "Keywords");
+        article.setId(1);
+        article.setCreatedAt(LocalDate.of(2022, 12, 1));
 
         Researcher researcher = getResearcher();
         article.setCorrespondentAuthor(researcher);
@@ -89,7 +90,7 @@ class ArticleMapperTest {
         assertEquals(article.getCreatedAt().toString(), articleRepresentation.createdAt);
         assertEquals(article.getJournal().getIssn(), articleRepresentation.journalIssn);
 
-        assertEquals(researcher.getFirstName(), articleRepresentation.researcher.firstName);
+        assertEquals(researcher.getName(), articleRepresentation.researcher.firstName);
         assertEquals(researcher.getLastName(), articleRepresentation.researcher.lastName);
         assertEquals(researcher.getAffiliation(), articleRepresentation.researcher.affiliation);
         assertEquals(researcher.getEmail(), articleRepresentation.researcher.email);
@@ -97,7 +98,7 @@ class ArticleMapperTest {
         assertEquals(2, articleRepresentation.authors.size());
         for(AuthorRepresentation r: articleRepresentation.authors){
             Author d = findAuthor(authors, r.email);
-            assertEquals(d.getFirstName(), r.firstName);
+            assertEquals(d.getName(), r.firstName);
             assertEquals(d.getLastName(), r.lastName);
             assertEquals(d.getAffiliation(), r.affiliation);
         }

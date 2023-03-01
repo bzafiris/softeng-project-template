@@ -14,9 +14,9 @@ import java.time.format.DateTimeFormatter;
 public abstract class ReviewInvitationMapper {
 
     @Mapping(target = "articleId", source = "model")
-    @Mapping(target = "researcherEmail", source = "reviewer.email")
-    @Mapping(target = "researcherId", expression = "java(model.getReviewer().getId())")
-    @Mapping(target = "createdAt", source = "created_at", qualifiedByName = "dateFormatter")
+    @Mapping(target = "researcherEmail", source = "researcher.email")
+    @Mapping(target = "researcherId", expression = "java(model.getResearcher().getId())")
+    @Mapping(target = "createdAt", source = "createdAt", qualifiedByName = "dateFormatter")
     public abstract ReviewInvitationRepresentation toRepresentation(
             ReviewInvitation model);
 

@@ -1,5 +1,6 @@
 package com.example.app.domain;
 
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -10,7 +11,7 @@ public class Editor extends User {
     public Editor() {
     }
 
-    public Editor(String firstName, String lastName, String affiliation, String email) {
-        super(firstName, lastName, affiliation, email);
+    public Editor(String name, String lastName, String affiliation, String email) {
+        super(name, lastName, affiliation, email);
     }
 }

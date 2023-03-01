@@ -11,10 +11,10 @@ insert into authors (id, first_name, last_name, affiliation, email) values (2001
 insert into authors (id, first_name, last_name, affiliation, email) values (2002, 'Enrico', 'Fregnan', 'University of Zurich', 'fregnan@ifi.uzh.ch');
 insert into authors (id, first_name, last_name, affiliation, email) values (2003, 'Josua', 'Fröhlich', 'University of Zurich', 'josua.froehlich@uzh.ch');
 
-insert into users(id, user_type, first_name, last_name, affiliation, email, password) values (1000, 'RESEARCHER', 'Nikos', 'Diamantidis', 'AUEB', 'ndia@aueb.gr', null);
-insert into users(id, user_type, first_name, last_name, affiliation, email, password) values (1001, 'RESEARCHER', 'Pooja', 'Rani', 'University of Bern', 'pooja.rani@unibe.ch', null);
-insert into users(id, user_type, first_name, last_name, affiliation, email, password) values (1002, 'RESEARCHER', 'Enrico', 'Fregnan', 'University of Zurich', 'fregnan@ifi.uzh.ch', null);
-insert into users(id, user_type, first_name, last_name, affiliation, email, password) values (1003, 'EDITOR', 'Paris', 'Avgeriou', 'University of Groningen', 'avgeriou@gmail.com', null);
+insert into users(id, user_type, first_name, last_name, affiliation, email, password) values (1000, 'RESEARCHER', 'Nikos', 'Diamantidis', 'AUEB', 'ndia@aueb.gr', '12345');
+insert into users(id, user_type, first_name, last_name, affiliation, email, password) values (1001, 'RESEARCHER', 'Pooja', 'Rani', 'University of Bern', 'pooja.rani@unibe.ch', '12345');
+insert into users(id, user_type, first_name, last_name, affiliation, email, password) values (1002, 'RESEARCHER', 'Enrico', 'Fregnan', 'University of Zurich', 'fregnan@ifi.uzh.ch', '12345');
+insert into users(id, user_type, first_name, last_name, affiliation, email, password) values (1003, 'EDITOR', 'Paris', 'Avgeriou', 'University of Groningen', 'avgeriou@gmail.com', '12345');
 
 insert into journals(id, title, issn, editor_id) values (3000, 'Journal of Systems and Software', '0164-1212', 1003);
 

@@ -3,18 +3,17 @@ package com.example.app.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name="journals")
+@Table(name = "journals")
 public class Journal {
 
     @Id
-    @Column(name="id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(name="title", length=200, nullable=false, unique = true)
+    @Column(name = "title", nullable = false, length = 200, unique = true)
     private String title;
 
-    @Column(name="issn", length=10, nullable=false, unique = true)
+    @Column(name = "issn", nullable = false, length = 10, unique = true)
     private String issn;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -33,16 +32,20 @@ public class Journal {
         return id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }
 
-    public String getIssn() {
-        return issn;
-    }
-
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getIssn() {
+        return issn;
     }
 
     public void setIssn(String issn) {

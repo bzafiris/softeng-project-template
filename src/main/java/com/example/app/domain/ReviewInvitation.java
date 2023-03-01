@@ -10,36 +10,48 @@ import java.time.LocalDate;
 public class ReviewInvitation {
 
     @Id
-    @Column(name="id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "reviewer_id", nullable = false)
-    private Researcher reviewer;
+    @JoinColumn(name = "reviewer_id")
+    private Researcher researcher;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "article_id", nullable = false)
+    @JoinColumn(name = "article_id")
     private Article article;
-
-    @Column(name="created_at", nullable = false)
-    private LocalDate created_at = SystemDate.now();
 
     @Column(name = "accepted")
     private Boolean accepted = null;
 
-    @OneToOne(mappedBy = "invitation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "invitation")
     private Review review;
+
+    @Column(name = "created_at")
+    private LocalDate createdAt = SystemDate.now();
 
     public ReviewInvitation() {
     }
 
-    public Researcher getReviewer() {
-        return reviewer;
+    public ReviewInvitation(Researcher researcher, Article article) {
+        this.researcher = researcher;
+        this.article = article;
     }
 
-    public void setReviewer(Researcher reviewer) {
-        this.reviewer = reviewer;
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Researcher getResearcher() {
+        return researcher;
+    }
+
+    public void setResearcher(Researcher researcher) {
+        this.researcher = researcher;
     }
 
     public Article getArticle() {
@@ -50,32 +62,12 @@ public class ReviewInvitation {
         this.article = article;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
     public Boolean getAccepted() {
         return accepted;
     }
 
     public void setAccepted(Boolean accepted) {
         this.accepted = accepted;
-    }
-
-    public void accept(){
-        accepted = true;
-    }
-
-    public void reject(){
-        accepted = false;
-    }
-
-    public LocalDate getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(LocalDate created_at) {
-        this.created_at = created_at;
     }
 
     public Review getReview() {
@@ -86,4 +78,11 @@ public class ReviewInvitation {
         this.review = review;
     }
 
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
 }

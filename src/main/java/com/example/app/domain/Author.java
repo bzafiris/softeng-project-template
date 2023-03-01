@@ -1,6 +1,5 @@
 package com.example.app.domain;
 
-
 import javax.persistence.*;
 
 @Entity
@@ -8,27 +7,23 @@ import javax.persistence.*;
 public class Author {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(name = "first_name", length = 50, nullable = false)
-    private String firstName;
-
-    @Column(name = "last_name", length = 50, nullable = false)
+    @Column(name = "first_name", nullable = false, length = 50)
+    private String name;
+    @Column(name = "last_name", nullable = false, length = 100)
     private String lastName;
-
-    @Column(name = "affiliation", length = 200, nullable = false)
+    @Column(name = "affiliation", nullable = false, length = 500)
     private String affiliation;
-
-    @Column(name = "email", length = 50, nullable = false)
+    @Column(name = "email", nullable = false, length = 50)
     private String email;
 
     public Author() {
     }
 
-    public Author(String firstName, String lastName, String affiliation, String email) {
-        this.firstName = firstName;
+    public Author(String name, String lastName, String affiliation, String email) {
+        this.name = name;
         this.lastName = lastName;
         this.affiliation = affiliation;
         this.email = email;
@@ -38,12 +33,16 @@ public class Author {
         return id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getLastName() {

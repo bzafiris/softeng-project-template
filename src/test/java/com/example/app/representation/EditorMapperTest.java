@@ -24,7 +24,7 @@ class EditorMapperTest {
 
         EditorRepresentation editorRepresentation = mapper.toRepresentation(editor);
 
-        assertEquals(editor.getFirstName(), editorRepresentation.firstName);
+        assertEquals(editor.getName(), editorRepresentation.firstName);
         assertEquals(editor.getLastName(), editorRepresentation.lastName);
         assertEquals(editor.getAffiliation(), editorRepresentation.affiliation);
         assertEquals(editor.getEmail(), editorRepresentation.email);

@@ -10,61 +10,45 @@ import java.util.Objects;
 public abstract class User {
 
     @Id
-    @Column(name="id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    protected Integer id;
+    private Integer id;
 
-    @Column(name="first_name", length=50, nullable=false)
-    protected String firstName;
-
-    @Column(name="last_name", length=50, nullable=false)
-    protected String lastName;
-
-    @Column(name="affiliation", length=200, nullable=false)
-    protected String affiliation;
-
-    @Column(name="email", length=30, nullable=false, unique = true)
+    @Column(name = "first_name", nullable = false, length = 50)
+    private String name;
+    @Column(name = "last_name", nullable = false, length = 100)
+    private String lastName;
+    @Column(name = "affiliation", nullable = false, length = 500)
+    private String affiliation;
+    @Column(name = "email", nullable = false, length = 50, unique = true)
     private String email;
-
-    @Column(name="password", length=10)
+    @Column(name = "password", nullable = false, length = 500)
     private String password;
 
-    protected User() {
+    protected User(){
+
     }
 
-    protected User(String firstName, String lastName, String affiliation, String email) {
-        this.firstName = firstName;
+    public User(String name, String lastName, String affiliation, String email) {
+        this.name = name;
         this.lastName = lastName;
         this.affiliation = affiliation;
         this.email = email;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getId() {
         return id;
     }
 
-    public String getEmail() {
-        return email;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public String getName() {
+        return name;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getLastName() {
@@ -83,8 +67,20 @@ public abstract class User {
         this.affiliation = affiliation;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

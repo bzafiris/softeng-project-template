@@ -1,56 +1,48 @@
 package com.example.app.domain;
 
-import com.example.app.domain.*;
 import com.example.app.persistence.JPAUtil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
+import javax.swing.text.html.parser.Entity;
+import javax.transaction.UserTransaction;
 
-
-/**
- * Κλάση που αναλαμβάνει να αρχικοποιήσει τα δεδομένα της βάσης δεδομένων<p>
- * Βοηθητική κλάση που παρέχει δεδομένα για τα παραδείγματα και τις δοκιμασίες ελέγχου<p>
- */
 public class Initializer {
 
-    //διαγράφουμε όλα τα δεδομένα στη βάση δεδομένων
-    public void  eraseData() {
+    protected void eraseData(){
         EntityManager em = JPAUtil.getCurrentEntityManager();
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
-        Query query = em.createNativeQuery("delete from article_authors");
-        query.executeUpdate();
+        em.createNativeQuery("delete from review_invitations")
+                .executeUpdate();
 
-        query = em.createNativeQuery("delete from authors");
-        query.executeUpdate();
+        em.createNativeQuery("delete from articles_authors")
+                .executeUpdate();
 
-        query = em.createNativeQuery("delete from reviews");
-        query.executeUpdate();
+        em.createNativeQuery("delete from authors")
+                .executeUpdate();
 
-        query = em.createNativeQuery("delete from review_invitations");
-        query.executeUpdate();
+        em.createNativeQuery("delete from articles")
+                .executeUpdate();
 
-        query = em.createNativeQuery("delete from articles");
-        query.executeUpdate();
+        em.createNativeQuery("delete from journals")
+                .executeUpdate();
 
-        query = em.createNativeQuery("delete from journals");
-        query.executeUpdate();
-
-        query = em.createNativeQuery("delete from users");
-        query.executeUpdate();
+        em.createNativeQuery("delete from users")
+                .executeUpdate();
 
         tx.commit();
         em.close();
+
     }
-    
 
-    public void prepareData() throws DomainException {
-
-        // πριν εισάγουμε τα δεδομένα διαγράφουμε ότι υπάρχει
+    public void prepareData(){
         eraseData();
 
+        EntityManager em = JPAUtil.getCurrentEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
 
         Author a11 = new Author("Pooja", "Rani", "University of Bern", "pooja.rani@unibe.ch");
         Author a12 = new Author("Ariana", "Blasi", "Università della Svizzera italiana", "arianna.blasi@usi.ch");
@@ -59,13 +51,16 @@ public class Initializer {
         Author a22 = new Author("Josua", "Fröhlich", "University of Zurich", "josua.froehlich@uzh.ch");
 
         Researcher r1 = new Researcher("Nikos", "Diamantidis", "AUEB", "ndia@aueb.gr");
+        r1.setPassword("123");
 
         Researcher r2 = new Researcher("Pooja", "Rani", "University of Bern", "pooja.rani@unibe.ch");
+        r2.setPassword("123");
         Researcher r3 = new Researcher("Enrico", "Fregnan", "University of Zurich", "fregnan@ifi.uzh.ch");
-
+        r3.setPassword("123");
 
         Editor e1 = new Editor("Paris", "Avgeriou",
                 "University of Groningen", "avgeriou@gmail.com");
+        e1.setPassword("123");
 
         Journal j1 = new Journal("Journal of Systems and Software", "0164-1212");
         j1.setEditor(e1);
@@ -82,6 +77,9 @@ public class Initializer {
         a1.addAuthor(a11);
         a1.addAuthor(a12);
 
+        a1.inviteReviewer(r1);
+        a1.inviteReviewer(r3);
+
         Article a2 = new Article();
         a2.setTitle("Graph-based visualization of merge requests for code review");
         a2.setSummary("Code review is a software development practice aimed at assessing " +
@@ -94,26 +92,17 @@ public class Initializer {
         a2.addAuthor(a21);
         a2.addAuthor(a22);
 
-        ReviewInvitation invitation1 = a1.inviteReviewer(r1);
-        ReviewInvitation invitation2 = a2.inviteReviewer(r1);
-
-        Review review = new Review(60, "Comments for author", "Confidential comments for editor", Recommendation.ACCEPT);
-        review.setInvitation(invitation1);
-
-        EntityManager em = JPAUtil.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-
-        em.persist(e1);
-        em.persist(j1);
         em.persist(r1);
         em.persist(r2);
         em.persist(r3);
+        em.persist(e1);
+
+        em.persist(j1);
+
         em.persist(a1);
         em.persist(a2);
-        em.persist(review);
 
         tx.commit();
         em.close();
-    }    
+    }
 }
