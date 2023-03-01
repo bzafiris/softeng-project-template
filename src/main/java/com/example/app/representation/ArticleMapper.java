@@ -8,6 +8,7 @@ import org.mapstruct.*;
 import javax.inject.Inject;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Mapper(componentModel = "cdi",
         injectionStrategy = InjectionStrategy.CONSTRUCTOR,
@@ -21,6 +22,8 @@ public abstract class ArticleMapper {
     @Mapping(target = "researcher", source = "correspondentAuthor")
     @Mapping(target = "createdAt", source = "createdAt", qualifiedByName = "dateFormatter")
     public abstract ArticleRepresentation toRepresentation(Article entity);
+
+    public abstract List<ArticleRepresentation> toRepresentationList(List<Article> entity);
 
     @Mapping(target = "correspondentAuthor", source = "researcher")
     @Mapping(target = "reviewInvitations", ignore = true)

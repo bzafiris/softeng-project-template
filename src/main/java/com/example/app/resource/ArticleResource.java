@@ -14,6 +14,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Path("articles")
 @RequestScoped
@@ -45,6 +47,16 @@ public class ArticleResource {
                 .entity(articleMapper.toRepresentation(entity))
                 .build();
 
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public List<ArticleRepresentation> listAllArticles(){
+
+        List<Article> articles = articleRepository.listAll();
+
+        return articleMapper.toRepresentationList(articles);
     }
 
     @DELETE

@@ -1,24 +1,28 @@
 package com.example.app.resource;
 
 import com.example.Fixture;
+import com.example.IntegrationBase;
 import com.example.app.representation.ArticleRepresentation;
 import com.example.app.util.SystemDateStub;
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
 import javax.ws.rs.core.Response;
 import java.time.LocalDate;
+import java.util.List;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 import static org.junit.jupiter.api.Assertions.*;
 
 @QuarkusTest
-class ArticleResourceTest {
+class ArticleResourceTest extends IntegrationBase {
 
     @Test
+    @TestTransaction
     void submitArticle() {
 
         SystemDateStub.setStub(LocalDate.of(2022, 12, 1));
@@ -37,6 +41,19 @@ class ArticleResourceTest {
         assertEquals(1, savedArticle.authors.size());
         assertNotNull(savedArticle.authors.get(0).id);
         assertEquals("2022-12-01", savedArticle.createdAt);
+
+    }
+
+    @Test
+    @TestTransaction
+    void listArticles(){
+
+        List<ArticleRepresentation> articles = when()
+                .get(Fixture.API_ROOT + "/articles")
+                .then().statusCode(200)
+                .extract().as(new TypeRef<List<ArticleRepresentation>>(){});
+
+        assertEquals(3, articles.size());
 
     }
 
