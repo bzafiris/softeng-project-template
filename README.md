@@ -21,4 +21,10 @@ cd docs
 mvnw umlet:convert
 ```
 
+Ρύθμιση του JAVA_HOME
+```bash
+# Περιβάλλον linux
+export JAVA_HOME='/path/to/jdk'
+```
+
 Προϋπόθεση είναι η αρχικοποίηση της μεταβλητή περιβάλλοντος JAVA_HOME με την τοποθεσία του Java JDK.
